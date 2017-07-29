@@ -1,0 +1,22 @@
+{
+  "name": "python-can-remote",
+  "version": "0.1.0",
+  "description": "Remote client to python-can",
+  "main": "node.js",
+  "browser": "bus.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "can",
+    "python"
+  ],
+  "author": "Christian Sandberg",
+  "homepage": "https://github.com/christiansandberg/python-can-remote-js",
+  "repository": "christiansandberg/python-can-remote-js",
+  "bugs": "https://github.com/christiansandberg/python-can-remote-js/issues",
+  "license": "MIT",
+  "dependencies": {
+    "ws": "^3.1.0"
+  }
+}
