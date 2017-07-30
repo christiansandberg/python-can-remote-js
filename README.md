@@ -30,8 +30,24 @@ $ python -m can.server --interface pcan --channel PCAN_USBBUS1 --bitrate 500000
 $ python -m can.server --interface ixxat --channel 0 --bitrate 500000
 ```
 
+When using Node.js or a bundler like [webpack](https://webpack.js.org/) or 
+[browserify](http://browserify.org), install this package as a dependency to 
+your project.
+
+```shell
+$ npm install --save python-can-remote
+```
+
+Alternatively you can include this in a script tag in your HTML.
+```html
+<script src="https://unpkg.com/python-can-remote"></script>
+```
+
+Here is an example of what you can do:
+
 ```javascript
-var Bus = require('python-can-remote').Bus;
+// Skip this if you have included it as a script tag earlier
+var Bus = require('python-can-remote');
 
 // Any configuration options will be passed as is when connecting to the bus
 var config = {receive_own_messages: true};
@@ -39,12 +55,23 @@ var bus = new Bus('ws://localhost:54701/', config);
 
 bus.on('connect', function () {
     console.log('Connected to ' + bus.channelInfo + ' on ' + bus.url);
+
+    // Send once
     bus.send({
         arbitration_id: 0xabcdef,
         extended_id: true,
         is_remote_frame: false,
         data: [0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 0x08]
     });
+
+    // Send periodic with 10 ms
+    var msg = {
+        arbitration_id: 0x123,
+        extended_id: false,
+        is_remote_frame: false,
+        data: [0xff, 0xff, 0xff]
+    };
+    bus.send_periodic(msg, 0.01);
 });
 
 bus.on('message', function (msg) {

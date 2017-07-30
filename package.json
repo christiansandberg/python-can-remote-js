@@ -1,11 +1,15 @@
 {
   "name": "python-can-remote",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Remote client to python-can",
   "main": "node.js",
   "browser": "bus.js",
+  "unpkg": "dist/python-can-remote.min.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "bundle": "mkdirp dist && browserify bus.js -o dist/python-can-remote.js -s Bus",
+    "minify": "uglifyjs dist/python-can-remote.js -o dist/python-can-remote.min.js -m",
+    "build": "npm run bundle && npm run minify"
   },
   "keywords": [
     "can",
@@ -16,7 +20,18 @@
   "repository": "christiansandberg/python-can-remote-js",
   "bugs": "https://github.com/christiansandberg/python-can-remote-js/issues",
   "license": "MIT",
+  "files": [
+    "bus.js",
+    "node.js",
+    "dist/"
+  ],
   "dependencies": {
+    "eventemitter3": "^2.0.3",
     "ws": "^3.1.0"
+  },
+  "devDependencies": {
+    "browserify": "^14.4.0",
+    "mkdirp": "^0.5.1",
+    "uglify-js": "^3.0.27"
   }
 }

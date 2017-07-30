@@ -1,21 +1,17 @@
 'use strict';
 
-var EventEmitter = require('events');
 var WebSocket = require('ws');
-var RemoteBus = require('./bus.js').Bus;
+var BusBase = require('./bus.js');
 
-function NodeRemoteBus(url, config) {
-    RemoteBus.call(this, url, config);
+function Bus(url, config) {
+    BusBase.call(this, url, config);
 }
 
-NodeRemoteBus.prototype = Object.create(RemoteBus.prototype);
-NodeRemoteBus.prototype.constructor = NodeRemoteBus;
-
-// Inherit from EventEmitter for better event handling
-Object.assign(NodeRemoteBus.prototype, EventEmitter.prototype);
+Bus.prototype = Object.create(BusBase.prototype);
+Bus.prototype.constructor = Bus;
 
 // Override connect funtion to work with 'ws' package
-NodeRemoteBus.prototype.connect = function (url) {
+Bus.prototype.connect = function (url) {
     if (url instanceof WebSocket) {
         // A WebSocket instance was passed to the constructor
         // Could be used in a server environment
@@ -25,4 +21,4 @@ NodeRemoteBus.prototype.connect = function (url) {
     }
 };
 
-module.exports.Bus = NodeRemoteBus;
+module.exports = Bus;
