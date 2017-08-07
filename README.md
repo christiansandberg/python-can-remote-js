@@ -50,7 +50,12 @@ Here is an example of what you can do:
 var Bus = require('python-can-remote');
 
 // Any configuration options will be passed as is when connecting to the bus
-var config = {receive_own_messages: true};
+var config = {
+    can_filters: [
+        {can_id: 0x123, can_mask: 0xfff, extended: false}
+    ],
+    receive_own_messages: true
+};
 var bus = new Bus('ws://localhost:54701/', config);
 
 bus.on('connect', function () {

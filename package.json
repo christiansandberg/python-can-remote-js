@@ -1,6 +1,6 @@
 {
   "name": "python-can-remote",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "Remote client to python-can",
   "main": "node.js",
   "browser": "bus.js",

@@ -20,7 +20,7 @@ function parseBinaryMessage(data) {
             };
             return {type: 'message', payload: msg};
         default:
-            return {type: 'unknown', payload: null};
+            return {type: 'unknown', payload: data};
     }
 }
 
@@ -28,8 +28,7 @@ function Bus(url, config) {
     EventEmitter.call(this);
 
     var self = this;
-    this.protocols = ['can.binary+json.v1', 'can.json.v1'];
-    this.connect(url);
+    this.connect(url, ['can.binary+json.v1', 'can.json.v1']);
     var ws = this.websocket;
     this.url = ws.url;
     ws.binaryType = 'arraybuffer';
@@ -75,8 +74,8 @@ function Bus(url, config) {
 // Add event emitter functionality
 Object.assign(Bus.prototype, EventEmitter.prototype);
 
-Bus.prototype.connect = function (url) {
-    this.websocket = new WebSocket(url, this.protocols);
+Bus.prototype.connect = function (url, protocols) {
+    this.websocket = new WebSocket(url, protocols);
 };
 
 Bus.prototype.send_event = function (event, payload) {
