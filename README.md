@@ -3,7 +3,7 @@ python-can remote for JavaScript
 
 This package adds [CAN](https://en.wikipedia.org/wiki/CAN_bus) capabilities 
 to JavaScript by communicating with the
-[python-can](https://github.com/hardbyte/python-can) server over WebSocket.
+[python-can-remote](https://github.com/christiansandberg/python-can-remote) server over WebSocket.
 It works both in [Node.js](https://nodejs.org/) and in modern
 [browsers](http://caniuse.com/#feat=websockets).
 
@@ -15,7 +15,7 @@ Install [python-can](https://pypi.python.org/pypi/python-can) on the computer
 hosting the physical CAN-bus:
 
 ```shell
-$ pip install python-can>=2
+$ pip install python-can
 ```
 
 Start the server and specify which interface and channel to share.
@@ -24,10 +24,10 @@ Many interfaces are supported. See the
 for python-can.
 
 ```shell
-$ python -m can.server --interface socketcan --channel can0
-$ python -m can.server --interface kvaser --channel 0 --bitrate 500000
-$ python -m can.server --interface pcan --channel PCAN_USBBUS1 --bitrate 500000
-$ python -m can.server --interface ixxat --channel 0 --bitrate 500000
+$ python -m can_remote --interface=socketcan --channel=can0
+$ python -m can_remote --interface=kvaser --channel=0 --bitrate=500000
+$ python -m can_remote --interface=pcan --channel=PCAN_USBBUS1 --bitrate=500000
+$ python -m can_remote --interface=ixxat --channel=0 --bitrate=500000
 ```
 
 When using Node.js or a bundler like [webpack](https://webpack.js.org/) or 
