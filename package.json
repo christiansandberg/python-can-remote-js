@@ -1,6 +1,6 @@
 {
   "name": "python-can-remote",
-  "version": "0.2.1",
+  "version": "0.3.0",
   "description": "Remote client to python-can",
   "main": "node.js",
   "browser": "bus.js",
@@ -26,11 +26,11 @@
     "dist/"
   ],
   "dependencies": {
-    "eventemitter3": "^2.0.3",
-    "ws": "^3.1.0"
+    "eventemitter3": "^3.1.2",
+    "ws": "^7.0.0"
   },
   "devDependencies": {
-    "browserify": "^14.4.0",
+    "browserify": "^16.2.3",
     "mkdirp": "^0.5.1",
     "uglify-js": "^3.0.27"
   }

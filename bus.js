@@ -13,11 +13,16 @@ function parseBinaryMessage(data) {
                 timestamp: dataview.getFloat64(1),
                 arbitration_id: dataview.getUint32(9),
                 dlc: dataview.getUint8(13),
-                extended_id: Boolean(flags & 0x1),
+                is_extended_id: Boolean(flags & 0x1),
                 is_remote_frame: Boolean(flags & 0x2),
                 is_error_frame: Boolean(flags & 0x4),
                 data: new Uint8Array(data, 15)
             };
+            if (flags & 0x8) {
+                msg.is_fd = true;
+                msg.bitrate_switch = Boolean(flags & 0x10);
+                msg.error_state_indicator = Boolean(flags & 0x20);
+            }
             return {type: 'message', payload: msg};
         default:
             return {type: 'unknown', payload: data};
@@ -93,6 +98,10 @@ Bus.prototype.send_periodic = function (msg, period, duration) {
         duration: duration,
         msg: msg
     });
+};
+
+Bus.prototype.stop_periodic = function (arbitration_id) {
+    this.send_event('periodic_stop', arbitration_id);
 };
 
 Bus.prototype.shutdown = function () {
